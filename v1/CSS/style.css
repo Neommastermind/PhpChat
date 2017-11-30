@@ -1,0 +1,29 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+.chatContainer {
+    width: 50%;
+    height: 50%;
+    position: relative;
+    left: 25%;
+    top: 25%;
+}
+.messageBox {
+    width: 100%;
+    height: 75%;
+    background-color: darkgrey;
+}
+.panel {
+    width: 100%;
+    height: 25%;
+}
+#userName {
+    width: 20%;
+}
+#message {
+    width: 70%
+}
+#btnSend {
+    width: 10%;
+}
