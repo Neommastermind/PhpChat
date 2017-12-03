@@ -1,29 +1,69 @@
-body {
+html {
     width: 100%;
     height: 100%;
 }
-.chatContainer {
+body {
+    width: 100%;
+    height: 100%;
+    background-color: BLACK;
+}
+#chatContainer {
     width: 50%;
     height: 50%;
-    position: relative;
+    overflow: hidden;
+    position: absolute;
     left: 25%;
     top: 25%;
 }
-.messageBox {
+#messageBox {
+    overflow: auto;
+    box-sizing: border-box;
     width: 100%;
-    height: 75%;
+    height: 90%;
     background-color: darkgrey;
+    padding: 5%;
 }
-.panel {
+#panel {
+    box-sizing: border-box;
     width: 100%;
-    height: 25%;
+    height: 10%;
 }
-#userName {
-    width: 20%;
+#messageTable {
+    width: 100%;
+    height: 100%;
+}
+#displayName {
+    width: 15%;
+    height: 100%;
+    overflow: hidden;
+    color: red;
 }
 #message {
-    width: 70%
+    width: 100%;
+    height: 100%;
+    overflow: auto;
 }
 #btnSend {
-    width: 10%;
+    width: 100%;
+    height: 100%;
+}
+#sideBar {
+    box-sizing: border-box;
+    width: 15%;
+    height: 50%;
+    padding: 1%;
+    background-color: ivory;
+    overflow: hidden;
+    position: absolute;
+    left: 5%;
+    top: 25%;
+}
+#loginBar {
+    width: 100%;
+    height: 100%;
+}
+#friendBar {
+    width: 100%;
+    height: 100%;
+    display: none;
 }
