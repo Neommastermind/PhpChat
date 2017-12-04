@@ -58,12 +58,15 @@ body {
     left: 5%;
     top: 25%;
 }
-#loginBar {
-    width: 100%;
-    height: 100%;
-}
 #friendBar {
     width: 100%;
     height: 100%;
     display: none;
+}
+#loginMenu {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-color: darkgrey;
+    padding: 5%;
 }
