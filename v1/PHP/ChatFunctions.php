@@ -27,6 +27,12 @@ function displayChat($userName) {
                     </head>
                     <body>
                         <div id="sideBar">
+                            <div id="userInfo">
+                                <span>$userName:</span>
+                                <form method="post", action="../chat.php">
+                                    <input type="submit" id="logOut">Log out</input>
+                                </form>
+                            </div>
                             <div id="friendBar">
                     
                             </div>
