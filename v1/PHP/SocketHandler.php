@@ -10,12 +10,12 @@ require_once '../DatabaseConnection.php';
 
 class SocketHandler
 {
-    public function sendMessage($msg)
+    public function sendMessage($message)
     {
         global $clients;
-        foreach($clients as $changed_socket)
+        foreach($clients as $changedSocket)
         {
-            @socket_write($changed_socket,$msg,strlen($msg));
+            @socket_write($changedSocket,$message,strlen($message));
         }
         return true;
     }
@@ -57,10 +57,10 @@ class SocketHandler
     }
 
 
-    public function handshake($received_header,$client_conn, $host, $port)
+    public function handshake($receivedHeader,$clientConn, $host, $port)
     {
         $headers = array();
-        $lines = preg_split("/\r\n/", $received_header);
+        $lines = preg_split("/\r\n/", $receivedHeader);
         foreach($lines as $line)
         {
             $line = chop($line);
@@ -76,8 +76,8 @@ class SocketHandler
             "Upgrade: websocket\r\n" .
             "Connection: Upgrade\r\n" .
             "WebSocket-Origin: $host\r\n" .
-            "WebSocket-Location: ws://$host:$port/demo/shout.php\r\n".
+            "WebSocket-Location: ws://$host:$port/WebSocket.php\r\n".
             "Sec-WebSocket-Accept:$secAccept\r\n\r\n";
-        socket_write($client_conn,$upgrade,strlen($upgrade));
+        socket_write($clientConn,$upgrade,strlen($upgrade));
     }
 }

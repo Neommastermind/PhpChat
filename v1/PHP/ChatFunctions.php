@@ -28,9 +28,9 @@ function displayChat($userName) {
                     <body>
                         <div id="sideBar">
                             <div id="userInfo">
-                                <span>$userName:</span>
-                                <form method="post", action="../chat.php">
-                                    <input type="submit" id="logOut">Log out</input>
+                                <span>'.$userName.':</span>
+                                <form method="post" action="Chat.php">
+                                    <input type="submit" id="logOut" value="Log Out"/>
                                 </form>
                             </div>
                             <div id="friendBar">
@@ -79,7 +79,6 @@ function displayLoginForm() {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="JS/SocketHandler.js" type="text/javascript"></script>
-    <script src="JS/login.js" type="text/javascript"></script>
 
 </head>
 <body>
