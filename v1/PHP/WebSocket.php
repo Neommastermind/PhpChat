@@ -11,8 +11,6 @@ $port = null;
 
 require_once 'SocketHandler.php';
 
-echo "hello";
-
 //Create TCP/IP Stream socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 //Bind an address to the socket
@@ -27,9 +25,9 @@ $socketHandler = new SocketHandler();
 
 //create & add listening socket to the list
 $clients = array($socket);
+
 //start endless loop, so that our script doesn't stop
 while (true) {
-    echo "hello";
     //manage multiple connections
     $changed = $clients;
     //returns the socket resources in $changed array

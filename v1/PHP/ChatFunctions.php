@@ -18,7 +18,7 @@ function displayChat($userName) {
                         <meta name="keywords" content="chat" />
                         <meta name="author" content="Matthew Jensen" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Title</title>
+                        <title>Chat</title>
                     
                         <link href="CSS/style.css" type="text/css" rel="stylesheet">
                     
@@ -73,7 +73,7 @@ function displayLoginForm() {
     <meta name="keywords" content="chat" />
     <meta name="author" content="Matthew Jensen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+    <title>Chat Login</title>
 
     <link href="CSS/style.css" type="text/css" rel="stylesheet">
 
