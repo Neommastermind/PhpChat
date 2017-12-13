@@ -14,17 +14,23 @@ $(document).ready(function(){
     });
 
     $('#btnSend').click(function(){ //use clicks message send button
-
-        waitForSocketConnection(websocket, function () {
+        if(websocket.readyState === WebSocket.CONNECTING) {
+            $('#messageBox').append("<div class=\"systemMessage\">We are still connecting you to the server, please wait.</div>");
+        }
+        else if(websocket.readyState === WebSocket.CLOSED) {
+            $('#messageBox').append("<div class=\"systemMessage\">The connection is closed, please wait while we re-open that for you.</div>");
+            websocket = new WebSocket(wsUri);
+        }
+        else {
             var message = $('#message').val(); //get message text
             userName = $('#displayName').text(); //get user name
 
-            if(userName == ""){
+            if (userName == "") {
                 alert("You do not have a name, please log out.");
                 websocket.close();
                 return;
             }
-            if(message == ""){
+            if (message == "") {
                 alert("You must enter a message first!");
                 websocket.close();
                 return;
@@ -34,11 +40,11 @@ $(document).ready(function(){
             var msg = {
                 message: message,
                 name: userName,
-                color : "#000000"
+                color: "#000000"
             };
             //convert and send data to server
             websocket.send(JSON.stringify(msg));
-        });
+        }
     });
 
     //#### Message received from server?
@@ -61,24 +67,4 @@ $(document).ready(function(){
 
     websocket.onerror   = function(event){$('#messageBox').append("<div class=\"systemError\">Error Occurred - "+event.data+"</div>");};
     websocket.onclose   = function(event){$('#messageBox').append("<div class=\"systemMessage\">Connection Closed</div>");};
-
-    function waitForSocketConnection(socket, callback){
-        setTimeout(
-            function(){
-                if (socket.readyState === socket.OPEN) {
-                    if (callback !== undefined) {
-                        callback();
-                    }
-                    return;
-                }
-                else if(socket.readyState === socket.CLOSED) {
-                    $('#messageBox').append("<div class=\"systemMessage\">The connection was closed, you cannot send a message.</div>");
-                    return;
-                }
-                else {
-                    $('#messageBox').append("<div class=\"systemMessage\">Attempting to send message...</div>");
-                    waitForSocketConnection(socket,callback);
-                }
-            }, 2000);
-    };
 });
