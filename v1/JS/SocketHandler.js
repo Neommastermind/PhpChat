@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //create a new WebSocket object.
-    var wsUri = "ws://icarus.cs.weber.edu/~mj34023/PhpChat/v1/PHP/WebSocket.php";
+    var wsUri = "wss://icarus.cs.weber.edu/~mj34023/PhpChat/v1/PHP/WebSocket.php";
     var websocket = new WebSocket(wsUri);
     var userName = "";
 
@@ -66,13 +66,19 @@ $(document).ready(function(){
         setTimeout(
             function(){
                 if (socket.readyState === socket.OPEN) {
-                    if(callback !== undefined){
+                    if (callback !== undefined) {
                         callback();
                     }
                     return;
-                } else {
+                }
+                else if(socket.readyState === socket.CLOSED) {
+                    $('#messageBox').append("<div class=\"systemMessage\">The connection was closed, you cannot send a message.</div>");
+                    return;
+                }
+                else {
+                    $('#messageBox').append("<div class=\"systemMessage\">Attempting to send message...</div>");
                     waitForSocketConnection(socket,callback);
                 }
-            }, 5);
+            }, 2000);
     };
 });

@@ -6,13 +6,16 @@
  * Time: 8:24 AM
  */
 
-$host = "localhost";
-$port = null;
-
 require_once 'SocketHandler.php';
+
+$host = "localhost";
+$port = 8090;
+$null = NULL;
+$socketHandler = new SocketHandler();
 
 //Create TCP/IP Stream socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, 1);
 //Bind an address to the socket
 //Must be done before we establish a connection
 socket_bind($socket, $host, $port);
@@ -21,7 +24,7 @@ socket_listen($socket);
 //Accept new connections to this socket
 //socket_accept($socket);
 
-$socketHandler = new SocketHandler();
+
 
 //create & add listening socket to the list
 $clients = array($socket);
@@ -35,12 +38,13 @@ while (true) {
 
     //check for new socket
     if (in_array($socket, $changed)) {
+        //Accept new connections to this socket
         $socketNew = socket_accept($socket);
         //add socket to client array
         $clients[] = $socketNew;
 
         $header = socket_read($socketNew, 1024);
-        //add the color into the data
+
         $socketHandler->handshake($header, $socketNew, $host, $port);
 
         socket_getpeername($socketNew, $ip); //get ip address of connected socket
@@ -56,9 +60,9 @@ while (true) {
     foreach ($changed as $changedSocket) {
 
         //check for any incoming data
-        while(socket_recv($changedSocket, $buf, 1024, 0) >= 1)
+        while(socket_recv($changedSocket, $data, 1024, 0) >= 1)
         {
-            $receivedText = $socketHandler->unmask($buf); //unmask data
+            $receivedText = $socketHandler->unmask($data); //unmask data
             $message = json_decode($receivedText); //json decode
             $userName = $message->name; //sender name
             $userMessage = $message->message; //message text
@@ -70,8 +74,8 @@ while (true) {
             break 2; //exit this loop
         }
 
-        $buf = @socket_read($changedSocket, 1024, PHP_NORMAL_READ);
-        if ($buf === false) { // check disconnected client
+        $data = @socket_read($changedSocket, 1024, PHP_NORMAL_READ);
+        if ($data === false) { // check disconnected client
             // remove client for $clients array
             $foundSocket = array_search($changedSocket, $clients);
             socket_getpeername($changedSocket, $ip);
