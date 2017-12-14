@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //create a new WebSocket object.
-    var wsUri = "wss://icarus.cs.weber.edu:8080";
+    var wsUri = "ws://icarus.cs.weber.edu:8080";
     var websocket = new WebSocket(wsUri);
     var userName = "";
 

@@ -69,7 +69,7 @@ class SocketHandler
                 $headers[$matches[1]] = $matches[2];
             }
         }
-        var_dump($headers);
+        
         $secKey = $headers['Sec-WebSocket-Key'];
         $secAccept = base64_encode(pack('H*', sha1($secKey . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
         //hand shaking header
@@ -77,7 +77,7 @@ class SocketHandler
             "Upgrade: WebSocket\r\n" .
             "Connection: Upgrade\r\n" .
             "WebSocket-Origin: $host\r\n" .
-            "WebSocket-Location: wss://$host:$port/WebSocket.php\r\n".
+            "WebSocket-Location: ws://$host:$port/WebSocket.php\r\n".
             "Sec-WebSocket-Accept:$secAccept\r\n\r\n";
         socket_write($clientConn,$upgrade,strlen($upgrade));
     }
