@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //create a new WebSocket object.
-    var wsUri = "wss://icarus.cs.weber.edu/~mj34023/PhpChat/v1/PHP/WebSocket.php";
+    var wsUri = "wss://icarus.cs.weber.edu:8000/~mj34023/PhpChat/v1/PHP/WebSocket.php";
     var websocket = new WebSocket(wsUri);
     var userName = "";
 

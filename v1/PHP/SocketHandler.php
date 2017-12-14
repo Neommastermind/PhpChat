@@ -72,8 +72,8 @@ class SocketHandler
         $secKey = $headers['Sec-WebSocket-Key'];
         $secAccept = base64_encode(pack('H*', sha1($secKey . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
         //hand shaking header
-        $upgrade  = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n" .
-            "Upgrade: websocket\r\n" .
+        $upgrade = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n" .
+            "Upgrade: WebSocket\r\n" .
             "Connection: Upgrade\r\n" .
             "WebSocket-Origin: $host\r\n" .
             "WebSocket-Location: wss://$host:$port/WebSocket.php\r\n".
