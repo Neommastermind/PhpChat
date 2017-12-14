@@ -9,8 +9,8 @@
 require_once 'SocketHandler.php';
 
 try {
-    $host = "localhost";
-    $port = 8000;
+    $host = "0.0.0.0";
+    $port = 8080;
     $null = NULL;
     $socketHandler = new SocketHandler();
 

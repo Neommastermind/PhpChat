@@ -69,6 +69,7 @@ class SocketHandler
                 $headers[$matches[1]] = $matches[2];
             }
         }
+        var_dump($headers);
         $secKey = $headers['Sec-WebSocket-Key'];
         $secAccept = base64_encode(pack('H*', sha1($secKey . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
         //hand shaking header
