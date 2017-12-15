@@ -6,7 +6,7 @@
  * Time: 9:12 AM
  */
 
-require_once '../DatabaseConnection.php';
+require_once 'DatabaseConnection.php';
 
 class SocketHandler
 {

@@ -24,6 +24,7 @@ $(document).ready(function(){
         else {
             var message = $('#message').val(); //get message text
             userName = $('#displayName').text(); //get user name
+            alert(userName);
 
             if (userName == "") {
                 alert("You do not have a name, please log out.");
@@ -56,7 +57,7 @@ $(document).ready(function(){
         var color = msg.color; //color
 
         if (type === 'userMessage') {
-            $('#messageBox').append("<div class='userMessage'><span class=\"userName\" style=\"color:" + color + "\">" + userName + "</span> : <span class=\"displayMessage\">" + message + "</span></div>");
+            $('#messageBox').append("<div class='userMessage'><span class=\"userName\" style=\"color:" + color + "\">" + userName + "</span><span class=\"displayMessage\">" + message + "</span></div>");
         }
         if (type === 'systemMessage') {
             $('#messageBox').append("<div class=\"systemMessage\">" + message + "</div>");

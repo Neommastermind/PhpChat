@@ -6,7 +6,7 @@
  * Time: 4:21 PM
  */
 
-require_once 'DatabaseConnection.php';
+require_once 'PHP/DatabaseConnection.php';
 require_once 'PHP/ChatFunctions.php';
 
 class User
@@ -14,6 +14,7 @@ class User
     private $userName;
     private $password;
     private $color;
+    private $socket;
 
     /*
      * Populates the user with data and sanitizes the input.

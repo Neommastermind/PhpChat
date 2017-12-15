@@ -6,7 +6,7 @@
  * Time: 5:26 PM
  */
 
-require_once 'User.php';
+require_once 'Models/User.php';
 require_once 'PHP/ChatFunctions.php';
 
 $user;
