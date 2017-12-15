@@ -24,7 +24,6 @@ $(document).ready(function(){
         else {
             var message = $('#message').val(); //get message text
             userName = $('#displayName').text(); //get user name
-            alert(userName);
 
             if (userName == "") {
                 alert("You do not have a name, please log out.");

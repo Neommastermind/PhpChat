@@ -7,12 +7,15 @@
  */
 
 require_once 'SocketHandler.php';
+require_once '../Models/User.php';
 
 try {
     $host = "0.0.0.0";
     $port = 8080;
     $null = NULL;
     $socketHandler = new SocketHandler();
+    $clients;
+    $users = array();
 
 
 //Create TCP/IP Stream socket
@@ -73,6 +76,7 @@ try {
             echo "Hand shake has ended\n";
 
             socket_getpeername($socketNew, $ip); //get ip address of connected socket
+
             $response = $socketHandler->mask(json_encode(array('type' => 'systemMessage', 'message' => $ip . ' connected'))); //prepare json data
             $socketHandler->sendMessage($response); //notify all users about new connection
 

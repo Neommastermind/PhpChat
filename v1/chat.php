@@ -11,12 +11,11 @@ require_once 'PHP/ChatFunctions.php';
 
 $user;
 $submitType = "";
-
 //Make sure everything is working as intended
-if(array_key_exists('userName', $_POST) && array_key_exists('password', $_POST) && array_key_exists('color', $_POST) && array_key_exists('submit', $_POST)) {
+if(array_key_exists('userName', $_POST) && array_key_exists('password', $_POST) && array_key_exists('color', $_POST) && array_key_exists('submit', $_POST) && array_key_exists('REMOTE_ADDR', $_SERVER)) {
     if(!empty($_POST['submit'])) {
         //Create the user object. The object sanitizes the data and does checking.
-        $user = new User($_POST['userName'], $_POST['password'], $_POST['color']);
+        $user = new User($_POST['userName'], $_POST['password'], $_SERVER['REMOTE_ADDR'], $_POST['color']);
         $submitType = filter_var($_POST['submit'], FILTER_SANITIZE_STRING);
 
     }
@@ -56,9 +55,17 @@ function login(User $user) {
 
         if (!empty($databaseUser) && password_verify($user->getPassword(), $databaseUser->getPassword()) === true) {
             //Valid login!
-            displayChat($user->getUserName());
+            User::updateIp($user);
+            displayChat($databaseUser->getUserName());
             exit(0);
-        } else {
+
+            /*else {
+                alert("A User is already logged in on this IP address, please use a different device.");
+                displayLoginForm();
+                exit(0);
+            }*/
+        }
+        else {
             http_response_code(401);
             alert("Invalid login information!");
             displayLoginForm();
@@ -86,17 +93,18 @@ function create(User $user) {
             http_response_code(201);
             displayChat($user->getUserName());
             exit(0);
-        } else {
+        }
+        else {
             http_response_code(401);
-            alert("Invalid Creation information!");
             displayLoginForm();
+            alert("Invalid Creation information!");
             exit(0);
         }
     }
     catch(PDOException $e) {
         http_response_code(500);
-        alert("An error has occurred while trying to log in. $e");
         displayLoginForm();
+        alert("An error has occurred while trying to log in. $e");
         exit(0);
     }
 }
