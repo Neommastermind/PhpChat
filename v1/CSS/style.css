@@ -36,7 +36,6 @@ body {
     width: 15%;
     height: 100%;
     overflow: hidden;
-    color: red;
 }
 #message {
     width: 100%;
@@ -74,10 +73,10 @@ body {
 
 }
 .systemMessage {
-
+    font-weight: bold;
 }
 .userName {
-
+    font-weight: bold;
 }
 .displayMessage {
 

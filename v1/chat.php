@@ -56,7 +56,7 @@ function login(User $user) {
         if (!empty($databaseUser) && password_verify($user->getPassword(), $databaseUser->getPassword()) === true) {
             //Valid login!
             User::updateIp($user);
-            displayChat($databaseUser->getUserName());
+            displayChat($databaseUser);
             exit(0);
 
             /*else {
@@ -91,7 +91,7 @@ function create(User $user) {
         if ($status) {
             //Valid Creation, log in!
             http_response_code(201);
-            displayChat($user->getUserName());
+            displayChat($user);
             exit(0);
         }
         else {

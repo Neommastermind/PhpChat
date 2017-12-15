@@ -5,7 +5,7 @@ $(document).ready(function(){
     var userName = "";
 
     websocket.onopen = function(event) { // connection is open
-        $('#messageBox').append("<div class=\"systemMessage\">Connected!</div>"); //notify user
+        $('#messageBox').append("<div class=\"systemMessage\">You have Connected!</div>"); //notify user
         userName = $('#displayName').text(); //get user name
     };
 
@@ -24,6 +24,7 @@ $(document).ready(function(){
         else {
             var message = $('#message').val(); //get message text
             userName = $('#displayName').text(); //get user name
+            var userColor = $('#displayName').css("color"); //get user color
 
             if (userName == "") {
                 alert("You do not have a name, please log out.");
@@ -40,7 +41,7 @@ $(document).ready(function(){
             var msg = {
                 message: message,
                 name: userName,
-                color: "#000000"
+                color: userColor
             };
             //convert and send data to server
             websocket.send(JSON.stringify(msg));
@@ -52,11 +53,11 @@ $(document).ready(function(){
         var msg = JSON.parse(event.data); //PHP sends Json data
         var type = msg.type; //message type
         var message = msg.message; //message text
-        var userName = msg.name; //user name
-        var color = msg.color; //color
 
         if (type === 'userMessage') {
-            $('#messageBox').append("<div class='userMessage'><span class=\"userName\" style=\"color:" + color + "\">" + userName + "</span><span class=\"displayMessage\">" + message + "</span></div>");
+            var userName = msg.name; //user name
+            var color = msg.color; //color
+            $('#messageBox').append("<div class=\"userMessage\"><span class=\"userName\" style=\"color:" + color + "\">" + userName + "</span><span class=\"displayMessage\">" + message + "</span></div>");
         }
         if (type === 'systemMessage') {
             $('#messageBox').append("<div class=\"systemMessage\">" + message + "</div>");

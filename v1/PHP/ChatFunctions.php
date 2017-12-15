@@ -6,10 +6,12 @@
  * Time: 6:01 PM
  */
 
+require_once  dirname(__FILE__).'/../Models/User.php';
+
 /*
  * Displays the html for the chat application.
  */
-function displayChat($userName) {
+function displayChat($user) {
     echo '<!DOCTYPE html>
           <html lang="en">
                     <head>
@@ -28,7 +30,7 @@ function displayChat($userName) {
                     <body>
                         <div id="sideBar">
                             <div id="userInfo">
-                                <span>'.$userName.':</span>
+                                <span>'.$user->getUserName().':</span>
                                 <form method="post" action="Chat.php">
                                     <input type="submit" id="logOut" value="Log Out"/>
                                 </form>
@@ -44,8 +46,8 @@ function displayChat($userName) {
                             <div id="panel">
                                 <table id="messageTable">
                                     <tr>
-                                        <td id="displayName">'.
-                                            $userName.':
+                                        <td id="displayName" style="color: ' . $user->getColor() . '">'.
+                                            $user->getUserName().':
                                         </td>
                                         <td>
                                             <input type="text" name="message" id="message" placeholder="Type your message here" maxlength="80" />

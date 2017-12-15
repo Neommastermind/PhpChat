@@ -77,7 +77,7 @@ try {
 
             socket_getpeername($socketNew, $ip); //get ip address of connected socket
 
-            $response = $socketHandler->mask(json_encode(array('type' => 'systemMessage', 'message' => $ip . ' connected'))); //prepare json data
+            $response = $socketHandler->mask(json_encode(array('type' => 'systemMessage', 'name' => 'system', 'message' => $ip . ' connected', 'color' => '#000000'))); //prepare json data
             $socketHandler->sendMessage($response); //notify all users about new connection
 
             //make room for new socket
@@ -92,9 +92,11 @@ try {
             while (socket_recv($changedSocket, $data, 1024, 0) >= 1) {
                 $receivedText = $socketHandler->unmask($data); //unmask data
                 $message = json_decode($receivedText); //json decode
-                $userName = $message->name; //sender name
-                $userMessage = $message->message; //message text
-                $userColor = $message->color; //color
+                if(!empty($message)) {
+                    $userName = $message->{'name'}; //sender name
+                    $userMessage = $message->{'message'}; //message text
+                    $userColor = $message->{'color'}; //color
+                }
 
                 //prepare data to be sent to client
                 $responseText = $socketHandler->mask(json_encode(array('type' => 'userMessage', 'name' => $userName, 'message' => $userMessage, 'color' => $userColor)));
@@ -110,7 +112,7 @@ try {
                 unset($clients[$foundSocket]);
 
                 //notify all users about disconnected connection
-                $response = $socketHandler->mask(json_encode(array('type' => 'systemMessage', 'message' => $ip . ' disconnected')));
+                $response = $socketHandler->mask(json_encode(array('type' => 'systemMessage', 'name' => 'system', 'message' => $ip . ' disconnected', 'color' => '#000000')));
                 $socketHandler->sendMessage($response);
             }
         }
