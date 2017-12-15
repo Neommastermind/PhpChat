@@ -185,16 +185,17 @@ class User
     public static function createUser(User $user): bool {
         try {
             $db = DatabaseConnection::getInstance();
-            //$dbUser = User::loadUserByIp($user->getIp());
-            //if(empty($dbUser)) {
+            $dbUser = User::loadUser($user->getUserName());
+            if(empty($dbUser)) {
                 $stmtHandle = $db->prepare("INSERT INTO User (userName, password, color, ip) VALUES(:userName, :password, :color, :ip)");
                 $stmtHandle->bindValue('userName', $user->getUserName());
                 $stmtHandle->bindValue('password', password_hash($user->getPassword(), PASSWORD_DEFAULT));
                 $stmtHandle->bindValue('color', $user->getColor());
                 $stmtHandle->bindValue('ip', $user->getIp());
                 return $stmtHandle->execute();
-            //}
-            //return false;
+            }
+            alert("This user name is already taken.");
+            return false;
         }
         catch (PDOException $e) {
             http_response_code(500);
